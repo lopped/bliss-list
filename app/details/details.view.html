@@ -1,0 +1,42 @@
+<div class="lists" ng-if="vm.data.connected">
+  <md-card style="width: 532px">
+    <md-card-content style="padding: 0; padding-top: 16px">
+      <md-list>
+        <md-list-item ng-if="vm.item.image_url">
+          <img ng-src="{{ vm.item.image_url }}" style="width: 500px">
+        </md-list-item>
+        <md-list-item>
+          <img ng-src="{{ vm.item.thumb_url }}" class="md-avatar" />
+          <h3>{{ vm.item.id ? vm.item.id : '-' }}: {{ vm.item.question }}</h3>
+        </md-list-item>
+        <md-list-item ng-repeat="choice in vm.item.choices track by $index">
+          <span>{{ choice.choice }} ({{choice.votes}} vote{{ choice.votes == 1 ? '' : 's' }})</span>
+          <md-button class="md-raised right-button" ng-disabled="vm.data.connecting" ng-click="vm.updateItem($index)" style="background-color: lightgray">Vote</md-button>
+        </md-list-item>
+        <md-list-item>
+          <sub>Published at {{ vm.getDataString(vm.item.published_at) }}</sub>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+  <md-card class="buttons-card" style="width: 500px">
+    <md-card-content style="padding: 0">
+      <md-list style="padding: 0">
+        <md-list-item>
+          <md-button class="md-raised left-button" ng-click="vm.goBack()" style="margin-left: 0">Go Back</md-button>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>
+<div class="noconnection center" ng-if="!vm.data.connected">
+  <md-card style="background-color: lightcyan">
+    <md-card-content>
+      <md-list>
+        <div style="text-align: center">
+          <span>No internet connection.</span>
+        </div>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>

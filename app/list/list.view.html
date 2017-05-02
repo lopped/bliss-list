@@ -1,0 +1,87 @@
+<div class="lists" ng-if="vm.data.connected">
+  <div style="overflow: auto">
+    <div style="float: left; width: 500px">
+      <md-card>
+        <md-card-content style="padding: 0">
+          <md-list style="padding: 0">
+            <md-list-item>
+              <md-input-container md-no-float class="md-block" style="width: 100%; margin-bottom: 0">
+                <input ng-model="vm.search" type="text" placeholder="Search questions" ng-disabled="vm.data.connecting" ng-click="vm.searchClicked()" ng-change="vm.typed()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }">
+              </md-input-container>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+      <md-card style="min-width: 210px">
+        <md-card-content style="padding: 0">
+          <md-list ng-if="vm.data.main.list.length" style="padding: 0">
+            <md-list-item ng-repeat="item in vm.data.main.list track by $index" ng-click="vm.showDetails(item)" ng-style="$index != vm.data.main.list.length - 1 ? { 'border-bottom': '1px solid #cfcfcf' } : {}">
+              <img ng-src="{{item.thumb_url}}" class="md-avatar" />
+              <span>{{ item.id }}. {{ item.question }}</span>
+            </md-list-item>
+          </md-list>
+          <div ng-if="!vm.data.main.list.length" style="text-align: center; padding: 10px">
+            <span>No questions found</span>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card class="buttons-card">
+        <md-card-content style="padding: 0">
+          <md-list style="padding: 0">
+            <md-list-item>
+              <md-button class="md-raised left-button" ng-hide="!vm.data.main.page" ng-disabled="vm.data.connecting" ng-click="vm.data.prevPage(vm.data.types.MAIN)" style="margin-left: 0">{{ (vm.data.main.page - 1) * 10 + 1 }} to {{ vm.data.main.page * 10 }}</md-button>
+              <md-button class="md-raised right-button" ng-hide="vm.data.main.list.length != 10" ng-disabled="vm.data.connecting" ng-click="vm.data.nextPage(vm.data.types.MAIN)" style="margin-right: 0">next 10</md-button>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div ng-if="!vm.dismissed" style="float: left; width: 500px">
+      <md-card class="buttons-card">
+        <md-card-content style="padding: 0">
+          <md-list style="padding: 0">
+            <md-list-item style="min-height: 76px">
+              <md-button class="md-raised left-button" ng-click="vm.share()" style="margin: 20px 0">share</md-button>
+              <md-button class="md-raised right-button" ng-click="vm.dismiss()" style="margin: 20px 0">dismiss</md-button>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+      <md-card style="min-width: 210px">
+        <md-card-content style="padding: 0">
+          <md-list ng-if="vm.data.search.list.length" style="padding: 0">
+            <md-list-item ng-repeat="item in vm.data.search.list track by $index" ng-click="vm.showDetails(item)" ng-style="$index != vm.data.search.list.length - 1 ? { 'border-bottom': '1px solid #cfcfcf' } : {}">
+              <img ng-src="{{item.thumb_url}}" class="md-avatar" />
+              <span>{{ item.id }}. {{ item.question }}</span>
+            </md-list-item>
+          </md-list>
+          <div ng-if="!vm.data.search.list.length" style="text-align: center; padding: 10px">
+            <span>No results{{ vm.noResults ? ' found' : '' }}</span>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card class="buttons-card">
+        <md-card-content style="padding: 0">
+          <md-list style="padding: 0">
+            <md-list-item>
+              <md-button class="md-raised left-button" ng-hide="!vm.data.search.page" ng-disabled="vm.data.connecting" ng-click="vm.data.prevPage(vm.data.types.SEARCH)" style="margin-left: 0">{{ (vm.data.search.page - 1) * 10 + 1 }} to {{ vm.data.search.page * 10 }}</md-button>
+              <md-button class="md-raised right-button" ng-hide="vm.data.search.list.length != 10" ng-disabled="vm.data.connecting" ng-click="vm.data.nextPage(vm.data.types.SEARCH, vm.search)" style="margin-right: 0">next 10</md-button>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+    </div>
+    <span style="clear: left"></span>
+  </div>
+</div>
+<div class="noconnection center" ng-if="!vm.data.connected">
+  <md-card style="background-color: lightcyan">
+    <md-card-content>
+      <md-list>
+        <div style="text-align: center">
+          <span>No internet connection.</span>
+        </div>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>

@@ -9,9 +9,8 @@
 ## INSTALLATION
 
 ```sh
-md bliss-app
-cd bliss-app
 git clone https://github.com/lopped/bliss-list
+cd bliss-list
 npm install
 bower install
 grunt serve
