@@ -1,0 +1,40 @@
+<div class="share" ng-if="vm.data.connected">
+  <md-card>
+    <md-card- style="padding: 0">
+      <md-list ng-if="vm.url">
+        <md-list-item style="text-align: center">
+          <span>{{ vm.url }}</span>
+        </md-list-item>
+        <md-list-item>
+          <md-input-container md-no-float class="md-block" style="width: 100%; margin-bottom: 0">
+            <input ng-model="vm.search" type="text" placeholder="E-mail address">
+          </md-input-container>
+        </md-list-item>
+      </md-list>
+      <div ng-if="!vm.url" style="text-align: center; padding: 10px">
+        <span>No url to share</span>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card class="buttons-card" ng-if="vm.url">
+    <md-card-content style="padding: 0">
+      <md-list style="padding: 0">
+        <md-list-item>
+          <md-button class="md-raised left-button" ng-disabled="vm.data.connecting" ng-click="vm.share()" style=" margin-left: 0">Share</md-button>
+          <md-button class="md-raised right-button" ng-disabled="vm.data.connecting" ng-click="vm.cancel()" style="margin-right: 0">Cancel</md-button>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>
+<div class="noconnection center" ng-if="!vm.data.connected">
+  <md-card style="background-color: lightcyan">
+    <md-card-content>
+      <md-list>
+        <div style="text-align: center">
+          <span>No internet connection.</span>
+        </div>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>
